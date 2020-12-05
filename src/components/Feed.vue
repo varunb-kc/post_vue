@@ -11,13 +11,13 @@
           <p class="feed-p">{{ p.text }}</p>
           <div class="feed-post-info" >
             <p class="feed-date">posted on {{ p.posted_on | dateStr }}</p>
-            <Btn @press="deletePost(p.id)" :preventDel="true"  >Delete</Btn>
+            <Btn @press="deletePost(p)" v-if="auth" :preventDel="true"  >Delete</Btn>
           </div>
         </div>
       </div>
     </div>
     <div class="weeks">
-      <Week :posts="thePosts" />
+      <Week :posts="posts" />
     </div>
   </div>
 </template>
@@ -27,7 +27,6 @@ import Week from "@/components/Week.vue";
 import Btn from '@/components/Btn.vue'
 
 export default {
-  props: ["posts"],
   components: { Week, Btn },
   filters: {
     dateStr(val) {
@@ -35,18 +34,21 @@ export default {
     },
   },
   methods: {
-    deletePost(id) {
-      this.$emit("del", id);
+    deletePost(post) {
+      this.$store.dispatch('delPost',post)
     },
   },
   computed: {
+    posts(){
+      return this.$store.state.posts
+    },
+    auth(){
+      return this.$store.state.auth
+    },
     sortedPosts() {
       return [...this.posts].sort((p1, p2) =>
         new Date(p1.posted_on) < new Date(p2.posted_on) ? +1 : -1
       );
-    },
-    thePosts() {
-      return [...this.posts];
     },
   },
 };

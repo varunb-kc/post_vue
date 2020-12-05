@@ -9,13 +9,10 @@
 </template>
 
 <script>
-import store from "@/store.js";
-
 export default {
   data() {
     return {
       postId: this.$route.params.postId,
-      post:null
     };
   },
   filters:{
@@ -23,8 +20,10 @@ export default {
           return new Date(d).toDateString()
       }
   },
-  created() {
-    this.post = store.find((p) => String(p.id) === String(this.postId));
+  computed:{
+    post(){
+      return this.$store.getters.thePost(this.postId)
+    }
   },
 };
 </script>

@@ -16,6 +16,9 @@ import TheNav from '@/components/TheNav.vue'
 export default {
   components : {
     Nav : TheNav
+  },
+  created(){
+    this.$store.dispatch('fetchPosts')
   }
 }
 </script>

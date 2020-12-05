@@ -3,7 +3,7 @@
         <div id="nav" >
             <router-link to="/" >Home</router-link>
             <router-link id="abt" to="/about">About</router-link>
-            <router-link v-if="!isAuth.value" to="/login">Login</router-link>
+            <router-link v-if="!isAuth" to="/login">Login</router-link>
             <Btn @press="logout" v-else >Logout</Btn>
         </div>
     </div>
@@ -11,17 +11,18 @@
 
 <script>
 
-import store from '@/storeX.js'
 import Btn from './Btn'
 
 export default {
-    data:() => ({
-        isAuth : store.isAuth
-    }),
+    computed:{
+        isAuth(){
+            return this.$store.state.auth
+        }
+    },
     components: {Btn},
     methods:{
         logout(){
-            store.isAuth.value = false;
+            this.$store.dispatch('setAuth',false);
             this.$router.replace({ name:'Home' })
         }
     }

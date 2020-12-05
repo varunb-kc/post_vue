@@ -6,7 +6,7 @@ import Info from '@/components/Info.vue';
 import Detail from '@/components/Detail.vue';
 import Post from '@/components/ThePost.vue';
 
-import store from '@/storeX.js'
+import vuexStore from '../vuex-store/index'
 
 Vue.use(VueRouter);
 
@@ -24,7 +24,7 @@ const routes = [
     name: "Post",
     component: Post,
     meta:{
-      auth: true
+      auth: false
     }
   },
   {
@@ -69,7 +69,7 @@ const router = new VueRouter({
 
 router.beforeEach(function( to, from, next ){
   if( to.meta.auth ){
-    if(store.isAuth.value){
+    if(vuexStore.state.auth){
       next()
     }else {
       router.replace({ name: 'Login' })

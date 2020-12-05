@@ -11,28 +11,16 @@
 
 
 <script>
-const week = [
-      { day: "Sunday", tasks: [] },
-      { day: "Monday", tasks: [] },
-      { day: "Tuesday", tasks: [] },
-      { day: "Wednesday", tasks: [] },
-      { day: "Thursday", tasks: [] },
-      { day: "Friday", tasks: [] },
-      { day: "Saturday", tasks: [] },
-];
 
 export default {
-  props: ["posts"],
   computed: {
     weeklyTasks() {
-      const weeks = [...week]
-      this.posts.forEach((post) => {
-        let resultIndex = new Date(post.posted_on).getDay(), day = weeks[resultIndex]
-        weeks[resultIndex] = {...day, tasks : [...day.tasks, post ] }
-      });
-      return weeks
+      return this.$store.state.weekTasks
     },
   },
+  created(){
+    // this.$store.dispatch('initWeekTasks');
+  }
 };
 </script>
 

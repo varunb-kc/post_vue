@@ -9,18 +9,17 @@
 <script>
 
 import Btn from '@/components/Btn.vue'
-import store from '@/storeX.js'
 
 export default {
     methods: {
         loginM(){
-            store.isAuth.value = true;
+            this.$store.dispatch('setAuth',true);
             this.$router.replace({ name:'Home' })
         }
     },
     computed:{
         isAuth(){
-            return store.isAuth.value
+            return this.$store.state.auth
         }
     },
     components: {

@@ -11,9 +11,6 @@ export default {
         }
     },
     props:['preventDel'],
-    created(){
-        // console.log('preventDel ',this.preventDel)
-    }
 }
 </script>
 
